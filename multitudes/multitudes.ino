@@ -55,7 +55,7 @@ fx_delay propagator(
     0.4,            // feedback value
     1.0,            // Clean mix
     0.5,            // Delay / echo mix
-    false          // Disable send/receive
+    false           // Disable send/receive
 ); 
 
 
