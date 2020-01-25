@@ -107,11 +107,11 @@ void update_propagator() {
    *  2.) The position of the Propagation Delay Ratio knob
    * 
    *  If the Propagation Delay Ratio knob is between noon and 6pm:
-   *    The Propagation delay knob position is mapped to prop_ratio: a value between [1, 3]
+   *    The Propagation delay knob position is mapped to prop_ratio: a value between [1, 4]
    *    The Propagation delay time is set to: (Driver Delay Time * Prop Ratio) 
    * 
    * If the Propagation Delay Ratio knob is between noon and 6pm:
-   *    The Propagation delay knob position is mapped to prop_ratio: a value between [3, 1] (note the direction change)
+   *    The Propagation delay knob position is mapped to prop_ratio: a value between [4, 1] (note the direction change)
    *    The Propagation delay time is set to: (Driver Delay Time / Prop Ratio) 
    * 
    *  If the Propagation Delay Ratio knob is set to noon: 
