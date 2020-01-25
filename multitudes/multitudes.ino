@@ -137,10 +137,6 @@ void update_propagator() {
 
 void loop() {
   
-  if (pedal.new_tap_interval()) { 
-    driver.set_length_ms(pedal.get_tap_interval_ms());
-  } 
-  
   if (pedal.pot_left.has_changed()) {
     driver.set_feedback(pedal.pot_left.val);
   }
@@ -149,6 +145,12 @@ void loop() {
     update_driver();
     update_propagator();
   }    
+
+  if (pedal.new_tap_interval()) { 
+    driver.set_length_ms(pedal.get_tap_interval_ms());
+    update_driver();
+    update_propagator();
+  } 
   
   pedal.service(); 
 
