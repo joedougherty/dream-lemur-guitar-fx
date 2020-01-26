@@ -97,7 +97,7 @@ void update_driver() {
 
 }
 
-void update_propagator() {
+void update_propagator(float driver_delay_len) {
   // Helper function to set delay length on the propagator delay.
 
   /*
@@ -119,16 +119,15 @@ void update_propagator() {
    */
   
   float prop_ratio, new_prop_len;
-  float new_driver_len = get_driver_len();
     
   if (pedal.pot_right.val > 0.5) {
     prop_ratio = map(pedal.pot_right.val, .5, 1, 1, int(max_prop_factor));
-    new_prop_len = new_driver_len * prop_ratio;
+    new_prop_len = driver_delay_len * prop_ratio;
   } else if (pedal.pot_right.val < 0.5) {
     prop_ratio = map(pedal.pot_right.val, 0, .5, int(max_prop_factor), 1);
-    new_prop_len = new_driver_len / prop_ratio;
+    new_prop_len = driver_delay_len / prop_ratio;
   } else {
-    new_prop_len = new_driver_len;
+    new_prop_len = driver_delay_len;
   }
    
   propagator.set_length_ms(new_prop_len);
@@ -143,12 +142,14 @@ void loop() {
 
   if (pedal.pot_center.has_changed() || pedal.pot_right.has_changed()) {
     update_driver();
-    update_propagator();
+    update_propagator(get_driver_len());
   }    
 
   if (pedal.new_tap_interval()) { 
-    driver.set_length_ms(pedal.get_tap_interval_ms());
-    update_propagator();
+    float new_tap_len = pedal.get_tap_interval_ms();
+    driver.set_length_ms(new_tap_len);
+    pedal.set_tap_blink_rate_ms(new_tap_len);
+    update_propagator(new_tap_len);
   } 
   
   pedal.service(); 
