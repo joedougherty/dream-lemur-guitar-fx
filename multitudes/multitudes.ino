@@ -28,7 +28,7 @@
  *
  *    If the knob is set between noon and 6pm (set between 5-10):
  *      The Propagation delay will be *longer* than the driver delay.
- *      Longer possible propagation delay length is driver delay time * 4.
+ *      Longest possible propagation delay length is driver delay time * 4.
  *
  * Left footswitch: bypass - turns on and off the effect
  * 
