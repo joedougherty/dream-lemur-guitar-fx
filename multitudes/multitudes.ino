@@ -148,7 +148,6 @@ void loop() {
 
   if (pedal.new_tap_interval()) { 
     driver.set_length_ms(pedal.get_tap_interval_ms());
-    update_driver();
     update_propagator();
   } 
   
