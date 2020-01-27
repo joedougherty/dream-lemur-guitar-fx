@@ -134,15 +134,23 @@ void update_propagator(float driver_delay_len) {
 
 }
 
+/* This value will carry the most up-to-date
+ * value of the driver's time (in ms).
+ *
+ * We'll initialize it with the default driver delay length.
+ */
+float updated_driver_time = 1000.0;
+
 void loop() {
   
   if (pedal.pot_left.has_changed()) {
     driver.set_feedback(pedal.pot_left.val);
   }
 
-  if (pedal.pot_center.has_changed() || pedal.pot_right.has_changed()) {
+  if (pedal.pot_center.has_changed()) {
     update_driver();
     update_propagator(get_driver_len());
+    updated_driver_time = get_driver_len();
   }    
 
   if (pedal.new_tap_interval()) { 
@@ -150,7 +158,12 @@ void loop() {
     driver.set_length_ms(new_tap_len);
     pedal.set_tap_blink_rate_ms(new_tap_len);
     update_propagator(new_tap_len);
+    updated_driver_time = new_tap_len;
   } 
+    
+  if (pedal.pot_right.has_changed()) {
+      update_propagator(updated_driver_time);
+  }
   
   pedal.service(); 
 
