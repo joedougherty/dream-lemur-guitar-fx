@@ -162,7 +162,7 @@ void loop() {
   } 
     
   if (pedal.pot_right.has_changed()) {
-      update_propagator(updated_driver_time);
+    update_propagator(updated_driver_time);
   }
   
   pedal.service(); 
